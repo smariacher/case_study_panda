@@ -1,31 +1,17 @@
 import streamlit as st
 
-st.set_page_config(page_title="Geräteverwaltung", page_icon="📈")
+st.set_page_config(page_title="Benutzer Verwaltung")
 
-st.markdown("# Plotting Demo")
-st.sidebar.header("Plotting Demo")
-st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
-)
+st.write("# Device Management")
 
-progress_bar = st.sidebar.progress(0)
-status_text = st.sidebar.empty()
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
+st.write("### Create new device")
+username = st.text_input("Device Name")
+device_type = st.text_input("Device Type")
+device_location = st.text_input("Device Location")
+cost_per_quarter = st.number_input("Cost per quarter in €", step=0.01)
 
-for i in range(1, 101):
-    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-    status_text.text("%i%% Complete" % i)
-    chart.add_rows(new_rows)
-    progress_bar.progress(i)
-    last_rows = new_rows
-    time.sleep(0.05)
+device_maintainer = st.selectbox("Select Device Maintainer", ["Peter", "Hans", "Max"])
 
-progress_bar.empty()
-
-# Streamlit widgets automatically run the script from top to bottom. Since
-# this button is not connected to any other logic, it just causes a plain
-# rerun.
-st.button("Re-run")
+if st.button("Add new Device") == True:
+    print(username, device_type, device_location, cost_per_quarter, device_maintainer)
+    st.success("Device created successfully")
