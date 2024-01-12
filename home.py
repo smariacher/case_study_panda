@@ -2,11 +2,12 @@
 import streamlit as st # Variante der Importierung wo immer .st vor den befehlen geschrieben werden muss.
 from tinydb import TinyDB, Query # Variante der Importierung wo nichts mehr vor die Befehle geschrieben werden muss.
 
-    
+# Datenbanken für eine vorherige Verwendung. Kann später gelöscht werden.
 db_devices = TinyDB('./data/devices.json')
 db_users = TinyDB('./data/users.json')
 db_reservations = TinyDB('./data/reservations.json')
  
+
 
 
 
