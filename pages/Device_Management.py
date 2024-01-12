@@ -27,6 +27,11 @@ device_name = st.text_input("Device Name")
 device_type = st.text_input("Device Type")
 device_location = st.text_input("Device Location")
 cost_per_quarter = st.number_input("Cost per quarter in €", step=0.01)
+
+#Search for device maintainer:
+db_users.search(is_device_mainter == True)
+
+
 device_maintainer_id = st.selectbox("Select Device Maintainer", ["Peter", "Hans", "Max"]) 
 #Zugriff auf Simons Datenbank über die ID
 #Hier fehlt noch die ID. Aktuell wird der Name ausgewählt und dieser in der Datenbank gespeichtert.
@@ -43,18 +48,32 @@ if st.button("Add new Device") == True:
 
 
 
+
+
+
+
+
+
 #Bearbeiten von bestehenden Geräten.
 
 
 st.write("### Change device")
 
-device_name = st.selectbox("Change Device Name", ["Device 1", "Device 2", "Device 3"])
-device_type = st.text_input("Change Device Type")
-device_location = st.text_input("Change Device Location")
-cost_per_quarter = st.number_input("Change cost per quarter in €", step=0.01)
 
-device_maintainer_id = st.selectbox("Change Device Maintainer", ["Peter", "Hans", "Max"])
+change_device_name = st.selectbox("Change Device Name", ["Device 1", "Device 2", "Device 3"])
+#Die Namen der Devices die bereits in der Datenbank sind müssen hier noch reingeladen werden.
+change_device_type = st.text_input("Change Device Type")
+#Auf Basis der Auswahl des Devices soll hier der Typ dann editierbar angezeigt werden.
+change_device_location = st.text_input("Change Device Location")
+#Auf Basis der Auswahl des Devices soll hier die Location dann editiertbar angezeigt werden.
+change_cost_per_quarter = st.number_input("Change cost per quarter in €", step=0.01)
+#Auf Basis der Auswahl des Devices soll hier der Preis dann editierbar angezeigt werden.
+change_device_maintainer_id = st.selectbox("Change Device Maintainer", ["Peter", "Hans", "Max"])
+#Auf Basis der Auswahl des Devices soll hier der Preis dann editierbar angezeigt werden.
+#Im Dropdown Menü sollten wieder nur die Leute angezeigt werden, die device_maintainer auf true gesetzt haben.
 
 if st.button("Change Device") == True:
-    print(device_name, device_type, device_location, cost_per_quarter, device_maintainer_id)
+    print(change_device_name, change_device_type, change_device_location, change_cost_per_quarter, change_device_maintainer_id)
+    #Änderungen sollen hier in die Datenbank geschrieben werden. 
+    #Dazu muss das Objekt gesucht werden und dann die neuen Variablen an die jeweilige Position geschrieben werden.
     st.success("Device changed successfully")
