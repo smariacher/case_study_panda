@@ -1,4 +1,5 @@
 import streamlit as st
+from home import db_devices, db_reservations, db_users
 
 st.set_page_config(page_title="User Management")
 
@@ -15,5 +16,6 @@ if is_device_maintainer == True:
 is_booking_guy = st.checkbox("Access for booking devices")
 
 if st.button("Add new User") == True:
-    print(user_mail, username, is_admin, is_device_maintainer, is_booking_guy)
+    db_users.insert({'user_name':username, 'email': user_mail, 'is_device_mainter':is_device_maintainer})
+    print(user_mail, username, is_device_maintainer, is_booking_guy)
     st.success("User created successfully")
