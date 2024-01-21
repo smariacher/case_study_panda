@@ -2,5 +2,5 @@ case_study_panda/
 case_study_panda_venv/
 fritzer_experimental/
 data/
-__pycahce__
+__pycache__
 testdatei_fritzer.py
