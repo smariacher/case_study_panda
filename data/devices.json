@@ -1,1 +1,1 @@
-{"_default": {"1": {"device_name": "Julian", "device_type": "Mann", "device_location": "MCI", "cost_per_quarter": 5000.0, "device_maintainer_id": "Peter"}}}
+{"_default": {"1": {"device_name": "asdf", "device_type": "asdf", "device_location": "asdf", "cost_per_quarter": 0.0, "device_maintainer_id": false}}}
