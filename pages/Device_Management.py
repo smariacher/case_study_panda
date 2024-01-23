@@ -11,14 +11,16 @@
 
 import streamlit as st
 from home import db_devices, db_users, db_reservations
+from tinydb import TinyDB, Query
 
+query = Query()
 
 st.set_page_config(page_title="Device Management")
 
 st.write("# Device Management")
 
 
-#Erstellen von neuen Geräten
+#Bereich: Erstellen von neuen Geräten
 
 
 st.write("### Create new device")
@@ -28,21 +30,30 @@ device_type = st.text_input("Device Type")
 device_location = st.text_input("Device Location")
 cost_per_quarter = st.number_input("Cost per quarter in €", step=0.01)
 
-#Search for device maintainer:
-db_users.search(is_device_mainter == True)
 
 
-device_maintainer_id = st.selectbox("Select Device Maintainer", ["Peter", "Hans", "Max"]) 
-#Zugriff auf Simons Datenbank über die ID
-#Hier fehlt noch die ID. Aktuell wird der Name ausgewählt und dieser in der Datenbank gespeichtert.
-#Ziel: Name auswählen und ID speichern. Dazu muss die Datenbank von Simon gelesen werden und alle mit
-#Device_maintainer = True in der Liste ausgegeben werden.
-#Beim Speichern dann nur die ID in die Datenbank übergeben.
+
+#Auswahl der Device Maintainer:
+
+#Suchen der Leute bei denen Device Maintainer == true:
+maintain_user_full = db_users.search(query.is_device_maintainer == True)
+#Die JSON Objekte der Leute sind jetzt in einer Liste gespeichert.
+
+#Hier werden die Namen der Leute in eine Liste geschrieben und dann in das Dropdown Menü geladen.
+maintain_user_name = [user['user_name'] for user in maintain_user_full if 'user_name' in user]
+device_maintainer_id = st.selectbox("Select Device Maintainer", maintain_user_name) 
+
+#Jetzt muss noch die ID des Maintainers in die Datenbank geschrieben werden.
+#Dazu muss die ID des Maintainers aus der Liste der JSON Objekte ausgelesen werden.
+#Danach muss die ID des Maintainers in die Datenbank mit den anderen Daten geschrieben werden. 
+maintain_save_id = [user['user_id'] for user in maintain_user_full if 'user_name' in user and user['user_name']] == device_maintainer_id
+
+#WARUM KOMMT HIER FALSE RAUS ? DAVOR KAM DIE RICHTIGE NUMMER RAUS =!=!=!!=! XYZ
 
 
 if st.button("Add new Device") == True:
-    db_devices.insert({'device_name': device_name, 'device_type': device_type, 'device_location': device_location, 'cost_per_quarter': cost_per_quarter, 'device_maintainer_id': device_maintainer_id})
-    print(device_name, device_type, device_location, cost_per_quarter, device_maintainer_id)
+    db_devices.insert({'device_name': device_name, 'device_type': device_type, 'device_location': device_location, 'cost_per_quarter': cost_per_quarter, 'device_maintainer_id': maintain_save_id})
+    print(device_name, device_type, device_location, cost_per_quarter, maintain_save_id)
     st.success("Device created successfully")
 
 
@@ -54,7 +65,7 @@ if st.button("Add new Device") == True:
 
 
 
-#Bearbeiten von bestehenden Geräten.
+#Bereich: Bearbeiten von bestehenden Geräten.
 
 
 st.write("### Change device")
