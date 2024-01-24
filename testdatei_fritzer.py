@@ -9,7 +9,7 @@ db_reservations = TinyDB('./data/reservations.json')
 
 query = Query()
 
-abc = db_users.search(query.is_device_mainter == True)
+abc = db_users.search(query.is_device_maintainer == True)
 
 print(abc)
 
