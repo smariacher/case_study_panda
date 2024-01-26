@@ -47,7 +47,10 @@ device_user_selected = st.selectbox("Select Device Maintainer", maintain_user_na
 #Ich benötige nun die ID des ausgewählten Users um diese in die Datenbank zu schreiben.
 writing_user_id = [user['user_id'] for user in maintain_user_full if user['user_name'] == device_user_selected]
 #Jetzt muss ich die writing_user_id noch unformatieren damit es eine Zahl ist und nicht eine Liste mit einer Zahl.
-writing_user_id = writing_user_id[0]
+if not len(writing_user_id) == 0:
+    writing_user_id = writing_user_id[0]
+else:
+    writing_user_id = None
 
 
 #Hier werden die Informationen des neuen Gerätes in die Datenbank geschrieben.
@@ -108,7 +111,11 @@ change_cost_per_quarter = st.number_input("Change cost per quarter in €", step
 change_device_maintainer_name = st.selectbox("Change Device Maintainer", maintain_user_name)
 #Hier muss ich noch wieder die ID rausfiltern: XYZ
 change_device_maintainer_id = [user['user_id'] for user in maintain_user_full if user['user_name'] == change_device_maintainer_name]
-change_device_maintainer_id = change_device_maintainer_id[0]
+if not len(change_device_maintainer_id) == 0:
+    change_device_maintainer_id = change_device_maintainer_id[0]
+else:
+    change_device_maintainer_id = None
+
 
 
 
