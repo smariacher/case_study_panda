@@ -5,3 +5,6 @@ data/
 __pycache__
 testdatei_fritzer.py
 tinydb_examples.py
+data/users.json
+data/reservations.json
+data/devices.json
