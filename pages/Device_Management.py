@@ -74,7 +74,10 @@ if st.button("Add new Device") == True:
 
 st.write("### Change device")
 
-
+#Falls noch keine Devices vorhanden sind, wird das hier abgefangen.
+if len(db_devices) == 0:
+    st.write("No devices found")
+    st.stop()
 
 
 #Die Namen der Devices die bereits in der Datenbank sind müssen hier noch reingeladen werden.
