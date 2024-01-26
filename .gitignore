@@ -8,3 +8,5 @@ tinydb_examples.py
 data/users.json
 data/reservations.json
 data/devices.json
+
+.venv/
